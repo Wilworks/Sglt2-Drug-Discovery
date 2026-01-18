@@ -1,0 +1,264 @@
+{% extends 'predictor/base.html' %}
+{% load static %}
+
+{% block title %}About - SGLT2 Predictor{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+    <div class="section-header">
+        <div>
+            <h1 class="section-title">About the Project</h1>
+            <p class="section-subtitle">Machine Learning-Based QSAR Modelling of SGLT2 Inhibitors</p>
+        </div>
+    </div>
+
+    <!-- Overview Card -->
+    <div class="card mb-xl">
+        <h2 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">
+            <i class="fas fa-flask" style="color: var(--accent-primary);"></i> Overview
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+            This project presents a comprehensive machine learning framework for predicting the inhibitory activity of
+            Sodium-Glucose Cotransporter 2 (SGLT2) compounds based on molecular fingerprints. The SGLT2 protein plays
+            a vital role in renal glucose reabsorption, and its inhibition has emerged as a therapeutic strategy for
+            type 2 diabetes mellitus.
+        </p>
+    </div>
+
+    <!-- Methodology Grid -->
+    <div class="section-header">
+        <h2 class="section-title">Methodology</h2>
+    </div>
+
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+        <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                <span
+                    style="width: 32px; height: 32px; background: rgba(91, 79, 231, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-database" style="color: var(--accent-primary);"></i>
+                </span>
+                <span style="font-weight: 600;">Data Curation</span>
+            </div>
+            <p style="font-size: var(--font-size-sm); color: var(--text-secondary);">
+                627 compounds from PubChem across 6 SGLT2 bioassays.
+            </p>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                <span
+                    style="width: 32px; height: 32px; background: rgba(34, 197, 94, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-balance-scale" style="color: var(--accent-success);"></i>
+                </span>
+                <span style="font-weight: 600;">Preprocessing</span>
+            </div>
+            <p style="font-size: var(--font-size-sm); color: var(--text-secondary);">
+                Undersampling to balance active/inactive classes.
+            </p>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                <span
+                    style="width: 32px; height: 32px; background: rgba(59, 130, 246, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-fingerprint" style="color: var(--accent-info);"></i>
+                </span>
+                <span style="font-weight: 600;">Features</span>
+            </div>
+            <p style="font-size: var(--font-size-sm); color: var(--text-secondary);">
+                ECFP4 fingerprints (2048 bits) via RDKit.
+            </p>
+        </div>
+
+        <div class="card">
+            <div style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                <span
+                    style="width: 32px; height: 32px; background: rgba(245, 158, 11, 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-chart-bar" style="color: var(--status-fetching);"></i>
+                </span>
+                <span style="font-weight: 600;">Explainability</span>
+            </div>
+            <p style="font-size: var(--font-size-sm); color: var(--text-secondary);">
+                SHAP for model interpretability.
+            </p>
+        </div>
+    </div>
+
+    <!-- Model Performance -->
+    <div class="section-header">
+        <h2 class="section-title">Model Performance</h2>
+    </div>
+
+    <div class="card mb-xl">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--border-light);">
+                    <th style="padding: var(--spacing-md); text-align: left; font-weight: 600;">Model</th>
+                    <th style="padding: var(--spacing-md); text-align: center; font-weight: 600;">Accuracy</th>
+                    <th style="padding: var(--spacing-md); text-align: center; font-weight: 600;">Precision</th>
+                    <th style="padding: var(--spacing-md); text-align: center; font-weight: 600;">Recall</th>
+                    <th style="padding: var(--spacing-md); text-align: center; font-weight: 600;">F1-Score</th>
+                    <th style="padding: var(--spacing-md); text-align: center; font-weight: 600;">ROC-AUC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: var(--spacing-md);">
+                        <span style="font-weight: 500;">SVM</span>
+                        <span class="status-badge status-active" style="margin-left: var(--spacing-sm);">Best</span>
+                    </td>
+                    <td
+                        style="padding: var(--spacing-md); text-align: center; font-weight: 600; color: var(--accent-success);">
+                        96.2%</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">1.000</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.913</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.955</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.977</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: var(--spacing-md); font-weight: 500;">Random Forest</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">91.3%</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.894</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.913</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.903</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.979</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: var(--spacing-md); font-weight: 500;">Gradient Boosting</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">91.3%</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.894</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.913</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.903</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.986</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                    <td style="padding: var(--spacing-md); font-weight: 500;">CatBoost</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">91.3%</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.894</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.913</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.903</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.986</td>
+                </tr>
+                <tr>
+                    <td style="padding: var(--spacing-md); font-weight: 500;">XGBoost</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">90.4%</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.875</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.913</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.894</td>
+                    <td style="padding: var(--spacing-md); text-align: center;">0.984</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Visualizations Section -->
+    <div class="section-header">
+        <h2 class="section-title">Model Visualizations</h2>
+    </div>
+
+    <!-- ROC Curves -->
+    <div class="card mb-xl">
+        <h3 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">
+            <i class="fas fa-chart-line" style="color: var(--accent-primary);"></i> ROC Curves
+        </h3>
+        <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+            Receiver Operating Characteristic curves showing the trade-off between true positive rate and false positive
+            rate for each model.
+        </p>
+        <div
+            style="text-align: center; background: var(--bg-primary); padding: var(--spacing-lg); border-radius: var(--radius-lg);">
+            <img src="{% static 'predictor/images/roc_curves.png' %}" alt="ROC Curves"
+                style="max-width: 100%; height: auto; border-radius: var(--radius-md);"
+                onerror="this.parentElement.innerHTML='<p style=color:var(--text-muted)>ROC curve image not available</p>'">
+        </div>
+    </div>
+
+    <!-- Confusion Matrices -->
+    <div class="card mb-xl">
+        <h3 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">
+            <i class="fas fa-th" style="color: var(--accent-success);"></i> Confusion Matrices
+        </h3>
+        <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+            Confusion matrices showing the classification performance of each model on the test set.
+        </p>
+        <div
+            style="text-align: center; background: var(--bg-primary); padding: var(--spacing-lg); border-radius: var(--radius-lg);">
+            <img src="{% static 'predictor/images/confusion_matrices.png' %}" alt="Confusion Matrices"
+                style="max-width: 100%; height: auto; border-radius: var(--radius-md);"
+                onerror="this.parentElement.innerHTML='<p style=color:var(--text-muted)>Confusion matrix image not available</p>'">
+        </div>
+    </div>
+
+    <!-- SHAP Analysis -->
+    <div class="card mb-xl">
+        <h3 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">
+            <i class="fas fa-chart-bar" style="color: var(--status-fetching);"></i> SHAP Feature Importance
+        </h3>
+        <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+            SHAP (SHapley Additive exPlanations) values showing the contribution of each molecular fingerprint bit to
+            the prediction.
+        </p>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: var(--spacing-lg);">
+            <div
+                style="text-align: center; background: var(--bg-primary); padding: var(--spacing-lg); border-radius: var(--radius-lg);">
+                <p style="font-weight: 600; margin-bottom: var(--spacing-sm);">Gradient Boosting SHAP</p>
+                <img src="{% static 'predictor/images/ShapGBC.png' %}" alt="SHAP Gradient Boosting"
+                    style="max-width: 100%; height: auto; border-radius: var(--radius-md);"
+                    onerror="this.parentElement.innerHTML='<p style=color:var(--text-muted)>SHAP image not available</p>'">
+            </div>
+            <div
+                style="text-align: center; background: var(--bg-primary); padding: var(--spacing-lg); border-radius: var(--radius-lg);">
+                <p style="font-weight: 600; margin-bottom: var(--spacing-sm);">CatBoost SHAP</p>
+                <img src="{% static 'predictor/images/ShapCBC.png' %}" alt="SHAP CatBoost"
+                    style="max-width: 100%; height: auto; border-radius: var(--radius-md);"
+                    onerror="this.parentElement.innerHTML='<p style=color:var(--text-muted)>SHAP image not available</p>'">
+            </div>
+        </div>
+    </div>
+
+    <!-- Inference Example -->
+    <div class="card mb-xl">
+        <h3 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">
+            <i class="fas fa-microscope" style="color: var(--accent-info);"></i> Inference Example
+        </h3>
+        <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+            Example SHAP explanation for a single compound prediction, showing which molecular features contributed to
+            the classification.
+        </p>
+        <div
+            style="text-align: center; background: var(--bg-primary); padding: var(--spacing-lg); border-radius: var(--radius-lg);">
+            <img src="{% static 'predictor/images/InferencePlotShap.png' %}" alt="Inference SHAP Plot"
+                style="max-width: 100%; height: auto; border-radius: var(--radius-md);"
+                onerror="this.parentElement.innerHTML='<p style=color:var(--text-muted)>Inference SHAP image not available</p>'">
+        </div>
+    </div>
+
+    <!-- Author Info -->
+    <div class="card">
+        <h2 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-md);">
+            <i class="fas fa-user-graduate" style="color: var(--accent-primary);"></i> Author
+        </h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl);">
+            <div>
+                <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Asumboya Wilfred Ayine</p>
+                <p style="font-size: var(--font-size-sm); color: var(--text-secondary);">
+                    Biomedical Engineering Student, Level 300<br>
+                    Department of Biomedical Engineering<br>
+                    University of Ghana
+                </p>
+            </div>
+            <div>
+                <p style="font-weight: 600; margin-bottom: var(--spacing-xs);">Supervisors</p>
+                <p style="font-size: var(--font-size-sm); color: var(--text-secondary);">
+                    Nunana Kingsley (Tutor)<br>
+                    Prof. Samuel Kwofie (Supervisor)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

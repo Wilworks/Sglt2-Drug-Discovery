@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SGLT2 Predictor{% endblock %}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'predictor/css/styles.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    {% block body %}
+    <div class="app-layout">
+        <!-- Sidebar -->
+        {% block sidebar %}{% endblock %}
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navigation -->
+            <nav class="top-nav">
+                <a href="{% url 'landing' %}" class="nav-brand">
+                    <i class="fas fa-dna" style="color: var(--accent-primary);"></i>
+                    <span>SGLT2 Predictor</span>
+                </a>
+
+                <div class="nav-tabs">
+                    <a href="{% url 'predict' %}"
+                        class="nav-tab {% if request.resolver_match.url_name == 'predict' %}active{% endif %}">
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                    <a href="{% url 'about' %}"
+                        class="nav-tab {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                        <i class="fas fa-info-circle"></i>
+                        About
+                    </a>
+                </div>
+
+                <div class="nav-actions">
+                    {% if user.is_authenticated %}
+                    <span class="text-secondary" style="font-size: var(--font-size-sm);">
+                        <i class="fas fa-user"></i> {{ user.username }}
+                    </span>
+                    <a href="{% url 'logout' %}" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </a>
+                    {% endif %}
+                </div>
+            </nav>
+
+            <!-- Page Content -->
+            <main class="page-content" style="padding: var(--spacing-xl);">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <i
+                        class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% elif message.tags == 'success' %}check-circle{% else %}info-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

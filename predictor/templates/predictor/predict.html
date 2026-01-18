@@ -1,0 +1,392 @@
+{% extends 'predictor/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - SGLT2 Predictor{% endblock %}
+
+{% block sidebar %}
+<aside class="sidebar">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-lg);">
+        <h2 style="font-size: var(--font-size-lg); font-weight: 600;">ML Models</h2>
+        <span class="status-badge status-active">5 Active</span>
+    </div>
+
+    <!-- Random Forest -->
+    <div class="model-accordion">
+        <div class="model-card" data-model="rf">
+            <div class="model-card-header" onclick="toggleModel(this)">
+                <img src="{% static 'predictor/images/random_forest.png' %}" alt="Random Forest" class="model-icon">
+                <div class="model-info">
+                    <div class="model-name">Random Forest</div>
+                    <div class="model-accuracy">
+                        <span>91.3%</span>
+                        <div class="model-accuracy-bar">
+                            <div class="model-accuracy-fill" style="width: 91.3%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div class="model-card-content">
+                <div class="model-description">
+                    <strong>Ensemble Learning</strong><br>
+                    Combines multiple decision trees using bootstrap aggregation (bagging) to reduce variance and
+                    prevent overfitting.
+                </div>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span class="model-stat-label">Precision</span>
+                        <span class="model-stat-value">0.894</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">Recall</span>
+                        <span class="model-stat-value">0.913</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">F1 Score</span>
+                        <span class="model-stat-value">0.903</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">ROC-AUC</span>
+                        <span class="model-stat-value">0.979</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gradient Boosting -->
+    <div class="model-accordion">
+        <div class="model-card" data-model="gb">
+            <div class="model-card-header" onclick="toggleModel(this)">
+                <img src="{% static 'predictor/images/gradient_boosting.png' %}" alt="Gradient Boosting"
+                    class="model-icon">
+                <div class="model-info">
+                    <div class="model-name">Gradient Boosting</div>
+                    <div class="model-accuracy">
+                        <span>91.3%</span>
+                        <div class="model-accuracy-bar">
+                            <div class="model-accuracy-fill" style="width: 91.3%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div class="model-card-content">
+                <div class="model-description">
+                    <strong>Sequential Boosting</strong><br>
+                    Builds trees sequentially, with each tree correcting errors from previous ones using gradient
+                    descent optimization.
+                </div>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span class="model-stat-label">Precision</span>
+                        <span class="model-stat-value">0.894</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">Recall</span>
+                        <span class="model-stat-value">0.913</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">F1 Score</span>
+                        <span class="model-stat-value">0.903</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">ROC-AUC</span>
+                        <span class="model-stat-value">0.986</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- XGBoost -->
+    <div class="model-accordion">
+        <div class="model-card" data-model="xgb">
+            <div class="model-card-header" onclick="toggleModel(this)">
+                <img src="{% static 'predictor/images/xgboost.png' %}" alt="XGBoost" class="model-icon">
+                <div class="model-info">
+                    <div class="model-name">XGBoost</div>
+                    <div class="model-accuracy">
+                        <span>90.4%</span>
+                        <div class="model-accuracy-bar">
+                            <div class="model-accuracy-fill" style="width: 90.4%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div class="model-card-content">
+                <div class="model-description">
+                    <strong>Extreme Gradient Boosting</strong><br>
+                    Optimized gradient boosting with regularization, parallel processing, and tree pruning for faster,
+                    more accurate results.
+                </div>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span class="model-stat-label">Precision</span>
+                        <span class="model-stat-value">0.875</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">Recall</span>
+                        <span class="model-stat-value">0.913</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">F1 Score</span>
+                        <span class="model-stat-value">0.894</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">ROC-AUC</span>
+                        <span class="model-stat-value">0.984</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CatBoost -->
+    <div class="model-accordion">
+        <div class="model-card" data-model="cb">
+            <div class="model-card-header" onclick="toggleModel(this)">
+                <img src="{% static 'predictor/images/catboost.png' %}" alt="CatBoost" class="model-icon">
+                <div class="model-info">
+                    <div class="model-name">CatBoost</div>
+                    <div class="model-accuracy">
+                        <span>91.3%</span>
+                        <div class="model-accuracy-bar">
+                            <div class="model-accuracy-fill" style="width: 91.3%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div class="model-card-content">
+                <div class="model-description">
+                    <strong>Categorical Boosting</strong><br>
+                    Handles categorical features natively with ordered boosting to reduce prediction shift and
+                    overfitting.
+                </div>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span class="model-stat-label">Precision</span>
+                        <span class="model-stat-value">0.894</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">Recall</span>
+                        <span class="model-stat-value">0.913</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">F1 Score</span>
+                        <span class="model-stat-value">0.903</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">ROC-AUC</span>
+                        <span class="model-stat-value">0.986</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SVM -->
+    <div class="model-accordion">
+        <div class="model-card active" data-model="svm">
+            <div class="model-card-header" onclick="toggleModel(this)">
+                <img src="{% static 'predictor/images/svm.png' %}" alt="SVM" class="model-icon">
+                <div class="model-info">
+                    <div class="model-name">
+                        SVM <span class="status-badge status-active"
+                            style="margin-left: 4px; font-size: 9px;">Best</span>
+                    </div>
+                    <div class="model-accuracy">
+                        <span>96.2%</span>
+                        <div class="model-accuracy-bar">
+                            <div class="model-accuracy-fill" style="width: 96.2%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div class="model-card-content">
+                <div class="model-description">
+                    <strong>Support Vector Machine</strong><br>
+                    Finds optimal hyperplane separating classes with maximum margin. Uses RBF kernel for non-linear
+                    classification.
+                </div>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span class="model-stat-label">Precision</span>
+                        <span class="model-stat-value">1.000</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">Recall</span>
+                        <span class="model-stat-value">0.913</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">F1 Score</span>
+                        <span class="model-stat-value">0.955</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="model-stat-label">ROC-AUC</span>
+                        <span class="model-stat-value">0.977</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <div>
+        <h1 class="section-title">SGLT2 Inhibitor Prediction</h1>
+        <p class="section-subtitle">Enter a SMILES string to predict molecular activity</p>
+    </div>
+</div>
+
+{% if models_missing %}
+<div class="alert alert-warning">
+    <i class="fas fa-exclamation-triangle"></i>
+    <strong>Models not loaded.</strong> Run <code>python train_models.py --data Wilfred.xlsx</code> to train models.
+</div>
+{% endif %}
+
+<!-- Prediction Form -->
+<div class="card mb-xl">
+    <form method="post" id="prediction-form">
+        {% csrf_token %}
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: var(--spacing-lg); align-items: end;">
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="smiles" class="form-label">SMILES String *</label>
+                <input type="text" class="form-input" id="smiles" name="smiles" value="{{ smiles }}"
+                    placeholder="e.g., CCO, CC(=O)OC1=CC=CC=C1C(=O)O" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="cid" class="form-label">CID (Optional)</label>
+                <input type="text" class="form-input" id="cid" name="cid" value="{{ cid }}" placeholder="PubChem CID">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label for="sid" class="form-label">SID (Optional)</label>
+                <input type="text" class="form-input" id="sid" name="sid" value="{{ sid }}" placeholder="PubChem SID">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-search"></i>
+                Predict
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if model_results %}
+<!-- Compound Information -->
+<div class="compound-info">
+    <div class="compound-info-item">
+        <div class="compound-info-label">SMILES</div>
+        <div class="compound-info-value">{{ smiles }}</div>
+    </div>
+    <div class="compound-info-item">
+        <div class="compound-info-label">CID</div>
+        <div class="compound-info-value">{{ cid|default:"Not provided" }}</div>
+    </div>
+    <div class="compound-info-item">
+        <div class="compound-info-label">SID</div>
+        <div class="compound-info-value">{{ sid|default:"Not provided" }}</div>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div class="section-header">
+    <h2 class="section-title">Prediction Results</h2>
+</div>
+
+<div class="results-grid">
+    {% for model_result in model_results %}
+    <div class="result-card">
+        <div class="result-header">
+            <span class="result-model-name">{{ model_result.name }}</span>
+            <span
+                class="result-prediction {% if model_result.activity == 'Active' %}active{% else %}inactive{% endif %}">
+                {% if model_result.activity == 'Active' %}
+                <i class="fas fa-check-circle"></i>
+                {% else %}
+                <i class="fas fa-times-circle"></i>
+                {% endif %}
+                {{ model_result.activity }}
+            </span>
+        </div>
+
+        {% if model_result.scores %}
+        <div class="score-bars">
+            {% if model_result.scores.active is not None %}
+            <div class="score-bar-container">
+                <div class="score-bar-label">
+                    <span>Active Probability</span>
+                    <span>{{ model_result.scores.active|floatformat:1 }}%</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-bar-fill success" style="width: {{ model_result.scores.active|floatformat:0 }}%;">
+                    </div>
+                </div>
+            </div>
+            <div class="score-bar-container">
+                <div class="score-bar-label">
+                    <span>Inactive Probability</span>
+                    <span>{{ model_result.scores.inactive|floatformat:1 }}%</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-bar-fill primary"
+                        style="width: {{ model_result.scores.inactive|floatformat:0 }}%;"></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if model_result.shap_features %}
+        <div class="shap-features">
+            <div class="shap-title">
+                <i class="fas fa-chart-bar"></i> Top SHAP Features
+            </div>
+            {% for feature_data in model_result.shap_features %}
+            <div class="shap-feature">
+                <div class="shap-feature-label">
+                    <span>{{ feature_data.feature }}</span>
+                    <span>{{ feature_data.value|floatformat:3 }}</span>
+                </div>
+                <div class="score-bar">
+                    <div class="score-bar-fill primary" style="width: {{ feature_data.percentage }}%;"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function toggleModel(header) {
+        const card = header.closest('.model-card');
+        const wasExpanded = card.classList.contains('expanded');
+
+        // Close all other cards
+        document.querySelectorAll('.model-card.expanded').forEach(c => {
+            if (c !== card) c.classList.remove('expanded');
+        });
+
+        // Toggle current card
+        card.classList.toggle('expanded', !wasExpanded);
+    }
+
+    // Expand the best model (SVM) by default
+    document.addEventListener('DOMContentLoaded', function () {
+        const svmCard = document.querySelector('.model-card[data-model="svm"]');
+        if (svmCard) {
+            svmCard.classList.add('expanded');
+        }
+    });
+</script>
+{% endblock %}
