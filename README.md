@@ -21,7 +21,9 @@ source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
-### 2. Train Models (Optional - models already included)
+### 2. Train Models (Required)
+
+Because trained model files are large, they are not included in the repository. You must train them locally (takes ~1-2 minutes):
 
 ```bash
 python train_models.py --data Wilfred.xlsx
@@ -55,8 +57,8 @@ Sglt2_Inhibition_Project/
 ├── manage.py              # Django management script
 ├── train_models.py        # Model training script
 ├── requirements.txt       # Python dependencies
-├── Wilfred.xlsx          # Training dataset (627 compounds)
-├── *.pkl                  # Trained model files
+├── Wilfred.xlsx           # Training dataset (627 compounds)
+├── models/                # Trained ML models & artifacts
 ├── sglt2_project/         # Django project settings
 │   ├── settings.py
 │   └── urls.py
